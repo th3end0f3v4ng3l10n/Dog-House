@@ -72,16 +72,40 @@ class Main():
             print(self.prices_array)
             dl('Всё спаршено!', self.green)
 
-        def close_drivers(self):
+        def close_drivers():
             for i in range(5):
                 try:
                     self.driver.close()
                 except:
                     break
                     print('COMLETED!')
-        #Call Functions
+
+        def fill_database():
+            wb = load_workbook('database.xlsx')
+            sheet = wb['Sheet']
+            max_a = sheet.max_row
+            max_b = sheet.max_row
+            max_c = sheet.max_row
+            max_d = sheet.max_row
+
+            for i in self.titles_array:
+                sheet.cell(row = max_a,column = 1).value = i
+                max_a += 1
+
+            for i in self.adress_array:
+                sheet.cell(row = max_b, column = 2).value = i
+                max_b += 1
+
+            for i in self.prices_array:
+                sheet.cell(row = max_c,column = 3).value = i
+                max_c += 1
+
+            wb.save('database.xlsx')
+                #Call Functions
         create_db()
         parse()
+        close_drivers()
+        fill_database()
 
 if __name__ == '__main__':
     root = Main()
